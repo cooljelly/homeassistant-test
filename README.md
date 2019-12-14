@@ -1,8 +1,6 @@
 # homeassistant-test
 This is my homeassistant config, just simple and easy to try.
 
-## Overall
-
 I use homeassistant as the central controlling node of my home. It is used to:
 
 1. Control light, air purifier, humidifier, etc
@@ -11,10 +9,10 @@ I use homeassistant as the central controlling node of my home. It is used to:
 
 The initial HA screenshot is as below:
 
+<img src="screenshot-1.png" alt="drawing" width="700"/>
+<img src="screenshot-2.png" alt="drawing" width="700"/>
 
-
-
-Steps to setup homeassistant:
+# Steps to setup homeassistant:
 
 ## Install hassbian (image_2019-07-02-Hassbian)
 
