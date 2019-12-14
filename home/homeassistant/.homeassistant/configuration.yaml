@@ -1,0 +1,142 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 40.076893
+  longitude: 116.315366
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Shanghai
+  # Customization file
+  #customize: !include customize.yaml
+
+zone:
+  - name: Work
+    latitude: 39.992260
+    longitude: 116.324551
+
+
+
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+homekit:
+  auto_start: true 
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+#switch:
+        #- platform: broadlink
+        #  host: 10.8.0.115
+        #  mac: 78:0f:77:5a:6e:91
+        #  switches:
+        #      airconditioner:
+        #        command_on: 'JgBgAQABKpMTNxM2EhIUEBMRFBATEhI3ExETNhQ1ExETERMSEhISEhMRExETNhMSEhISEhMRExETEhM1ExISEhISExETERQ1FBAUERISExETERQQFBATEhMREhITERMRExETEhISEhITAAEFFBAUERISExETERMRFBATNhMSEhITERQQExEUEBMSEhITERMRExEUEBMSExESEhMRExETERQQExITERMRFBATERQQFBESEhMRExETNhMRExEUERISExETERMRExETERMSEhIUEBMRExETERMSEhISEhMREzYTNhQQFBETNhMRExEUAAEFEhISEhMRExEUEBMRFBESEhM2ExETNhMRExETNxISExETERQQExETEhISExETERMRFBAUEBMSEhISEhMRExETERMSEhISEhQQEzYTNhMRExISNxISEzYUEBQ1ExETEhMREhITERQQExEUERMREhISEhMADQUAAAAAAAAAAA=='
+        #        command_off: 'JgBgAQABKZMTNxI3ExETERMRExETEhI3ExETNhM2ExETEhMREhISEhMRFBATNhMSEhISEhQQExETERMRFBESEhISFDUTERM2ExEUERISExETERMRExETERMSEhITERMRExETERMSEhISAAEGFBATERQREhITERMRExETNhMSEhISEhMRExETERMRFBESEhISExETERMRExEUERISEhITERMRExETEhISExETERMRExETERMSExESNxMRExETERMRExITERMRFBATERMRExETEhISExETERMRExEUERISEhITNhQQFBAUEBMSEhISAAEGFBATEhISEhITERMRExETERM2FBESNxMRFBATNhMRExITERMRExETERMRFBATEhISEhITERMRExETEhISEhITERMRExEUEBMSEhISNxMRExEUNRMRFDUUERM2ExETERMRFBATEhMREhITNhMRFBATERMADQUAAAAAAAAAAA=='
+        
+switch:
+  - platform: broadlink
+    host: 10.8.0.124
+    mac: '34:ea:34:d1:0d:02'
+    type: mp1
+    friendly_name: "Broadlink MP1"
+    slots:
+      slot_1: 'airpurifier'
+      slot_2: 'empty2'
+      slot_3: 'empty3'
+      slot_4: 'humidifier'
+
+# Sensors
+sensor:
+  # Weather prediction
+  #- platform: yr
+
+  - platform: command_line
+    name: CPU Temperature
+    command: "cat /sys/class/thermal/thermal_zone0/temp"
+    unit_of_measurement: "°C"
+    value_template: '{{ value | multiply(0.001) }}'
+
+  - platform: command_line
+    name: DS18B20 Temperature
+    command: "python /home/pi/temperature/read_temp_ds18b20.py"
+    unit_of_measurement: "°C"
+
+  - platform: command_line
+    name: DHT22 Temperature
+    command: "python /home/pi/temperature/read_temp_dht22.py"
+    unit_of_measurement: "°C"
+
+  - platform: command_line
+    name: DHT22 Humidity
+    command: "python /home/pi/humidity/read_humidity.py"
+    unit_of_measurement: "%"
+
+  - platform: command_line
+    name: Beijing Air Quality
+    command: "bash /home/pi/aqi/read_api_bj.sh"
+    unit_of_measurement: "μg/m3"
+
+  - platform: command_line
+    name: Plantower PM1.0
+    command: "python3 /home/pi/plantower/fetch_data.py pm1.0"
+    unit_of_measurement: "μg/m3"
+
+  - platform: command_line
+    name: Plantower PM2.5
+    command: "python3 /home/pi/plantower/fetch_data.py pm2.5"
+    unit_of_measurement: "μg/m3"
+
+  - platform: command_line
+    name: Plantower PM10
+    command: "python3 /home/pi/plantower/fetch_data.py pm10"
+    unit_of_measurement: "μg/m3"
+
+  - platform: command_line
+    name: Plantower CC0.3um
+    command: "python3 /home/pi/plantower/fetch_data.py cc0.3um"
+    unit_of_measurement: "unit/0.1L"
+
+  - platform: command_line
+    name: Plantower CC0.5um
+    command: "python3 /home/pi/plantower/fetch_data.py cc0.5um"
+    unit_of_measurement: "unit/0.1L"
+
+  - platform: command_line
+    name: Plantower CC1.0um
+    command: "python3 /home/pi/plantower/fetch_data.py cc1.0um"
+    unit_of_measurement: "unit/0.1L"
+
+  - platform: command_line
+    name: Plantower CC2.5um
+    command: "python3 /home/pi/plantower/fetch_data.py cc2.5um"
+    unit_of_measurement: "unit/0.1L"
+
+  - platform: command_line
+    name: Plantower CC5.0um
+    command: "python3 /home/pi/plantower/fetch_data.py cc5.0um"
+    unit_of_measurement: "unit/0.1L"
+
+  - platform: command_line
+    name: Plantower CC10um
+    command: "python3 /home/pi/plantower/fetch_data.py cc10um"
+    unit_of_measurement: "unit/0.1L"
+
+
+lovelace:
+  mode: yaml

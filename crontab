@@ -1,0 +1,2 @@
+* * * * * /usr/bin/bash /home/pi/automation/check_openvpn.sh & 1>/dev/null 2>&1
+*/3 * * * * /usr/bin/python3 /home/pi/plantower/read_g5_sensor.py & 1>/dev/null 2>&1

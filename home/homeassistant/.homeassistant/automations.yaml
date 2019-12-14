@@ -1,0 +1,47 @@
+- id: '1547393310835'
+  alias: start_humidifier
+  trigger:
+  - below: '20'
+    entity_id: sensor.dht22_humidity
+    platform: numeric_state
+  condition:
+  - after: '20:00'
+    before: '9:00'
+    condition: time
+  action:
+  - data:
+      entity_id: switch.humidifier
+    service: switch.turn_on
+- id: '1547393502575'
+  alias: stop_humidifier
+  trigger:
+  - above: '40'
+    entity_id: sensor.dht22_humidity
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      entity_id: switch.humidifier
+    service: switch.turn_off
+- id: '1547394333152'
+  alias: start_airpurifier
+  trigger:
+  - above: '120'
+    entity_id: sensor.plantower_pm25
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      entity_id: switch.airpurifier
+    service: switch.turn_on
+- id: '1547394384713'
+  alias: stop_airpurifier
+  trigger:
+  - below: '80'
+    entity_id: sensor.plantower_pm25
+    platform: numeric_state
+  condition: []
+  action:
+  - data:
+      entity_id: switch.airpurifier
+    service: switch.turn_off

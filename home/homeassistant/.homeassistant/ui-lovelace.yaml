@@ -1,0 +1,93 @@
+title: Home
+views:
+  - badges:
+      - entity: binary_sensor.updater
+      - entity: sun.sun
+      - entity: sensor.beijing_air_quality
+      - entity: sensor.cpu_temperature
+      - entity: sensor.ds18b20_temperature
+      - entity: sensor.dht22_temperature
+      - entity: sensor.dht22_humidity
+      - entity: sensor.plantower_pm1_0
+      - entity: sensor.plantower_pm2_5
+      - entity: sensor.plantower_pm10
+      - entity: sensor.plantower_cc0_3um
+      - entity: sensor.plantower_cc0_5um
+      - entity: sensor.plantower_cc1_0um
+      - entity: sensor.plantower_cc2_5um
+      - entity: sensor.plantower_cc5_0um
+      - entity: sensor.plantower_cc10um
+    cards:
+      - entity: weather.jia
+        theme: Backend-selected
+        type: weather-forecast
+      - entities:
+          - entity: sensor.beijing_air_quality
+        hours_to_show: 24
+        refresh_interval: 0
+        title: 北京PM2.5趋势
+        type: history-graph
+      - entities:
+          - entity: sensor.cpu_temperature
+          - entity: sensor.dht22_humidity
+          - entity: sensor.dht22_temperature
+          - entity: sensor.ds18b20_temperature
+          - entity: sensor.plantower_pm1_0
+          - entity: sensor.plantower_pm2_5
+          - entity: sensor.plantower_pm10
+          - entity: sensor.plantower_cc0_3um
+          - entity: sensor.plantower_cc0_5um
+          - entity: sensor.plantower_cc1_0um
+          - entity: sensor.plantower_cc2_5um
+          - entity: sensor.plantower_cc5_0um
+          - entity: sensor.plantower_cc10um
+        show_header_toggle: false
+        title: sensors@主卧
+        type: entities
+    icon: 'mdi:home-assistant'
+    path: default_view
+    theme: Backend-selected
+    title: Home
+  - badges: []
+    cards:
+      - entities:
+          - entity: switch.airpurifier
+          - entity: switch.humidifier
+        title: 主卧电源插座
+        type: entities
+      - entities:
+          - entity: automation.stop_humidifier
+          - entity: automation.start_humidifier
+          - entity: automation.start_airpurifier
+          - entity: automation.stop_airpurifier
+        show_header_toggle: false
+        title: 自动化
+        type: entities
+      - entities:
+          - entity: sensor.dht22_humidity
+        hours_to_show: 24
+        refresh_interval: 0
+        title: 主卧湿度
+        type: history-graph
+      - entities:
+          - entity: sensor.dht22_temperature
+          - entity: sensor.ds18b20_temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        title: 主卧温度
+        type: history-graph
+      - entities:
+          - entity: sensor.plantower_pm2_5
+          - entity: sensor.plantower_cc0_3um
+          - entity: sensor.plantower_cc0_5um
+          - entity: sensor.plantower_cc1_0um
+          - entity: sensor.plantower_cc2_5um
+          - entity: sensor.plantower_cc5_0um
+          - entity: sensor.plantower_cc10um
+        hours_to_show: 24
+        refresh_interval: 0
+        title: 主卧空气质量
+        type: history-graph
+    icon: 'mdi:home-automation'
+    panel: false
+    title: Automation
