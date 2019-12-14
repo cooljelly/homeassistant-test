@@ -1,6 +1,19 @@
 # homeassistant-test
 This is my homeassistant config, just simple and easy to try.
 
+## Overall
+
+I use homeassistant as the central controlling node of my home. It is used to:
+
+1. Control light, air purifier, humidifier, etc
+2. Use sensors to detect realtime temperature/humidity/air_condition, etc
+3. Automation
+
+The initial HA screenshot is as below:
+
+
+
+
 Steps to setup homeassistant:
 
 ## Install hassbian (image_2019-07-02-Hassbian)
@@ -36,6 +49,27 @@ Advanced option -> A1 Expand Filesystem->OK-finish
 
 I want to access HA from outside, so I need to use openvpn to connect HA to the IPv6 Internet.
 You can use any other VPN to solve the connection problem.
+
+### NGINX
+
+Since HA supports IPv6 not very well, I use nginx to proxy IPv6 requests.
+Refer https://www.home-assistant.io/docs/ecosystem/nginx/ for more details.
+
+### HTTPS
+
+I use letsencrypt to secure my HA service:
+
+```
+sudo apt-get install certbot python-certbot-nginx
+sudo certbot --nginx
+```
+
+Refer:
+
+https://certbot.eff.org/lets-encrypt/debianbuster-nginx
+
+https://www.home-assistant.io/docs/ecosystem/nginx/
+
 
 ## Sensors and Switches
 
@@ -76,25 +110,34 @@ If it runs well, we can add it in crontab, and fetch data in HA configuration fi
 
 I use broadlink MP1 to turn on/off air purifier/humidifier and broadlink RM to turn on/off airconditioner, etc.
 
+refer:
+https://www.home-assistant.io/integrations/broadlink/
 
 
-reboot cable
+## homebridge 
 
-5. homebridge 
+Add following code to configuration.yaml:
 
+```
+homekit:
+  auto_start: true 
+```
 
-6. nginx and HTTPS
+After restart HA, it will show a pairing code, which should be paste to your iOS device. 
 
-https://certbot.eff.org/lets-encrypt/debianbuster-nginx
-https://www.home-assistant.io/docs/ecosystem/nginx/
+## GUI
 
-sudo apt-get install certbot python-certbot-nginx
-sudo certbot --nginx
+We can customize ui-lovelace.yaml.
 
-jiemian
-https://cdn.materialdesignicons.com/4.5.95/
+For icons we can refer https://cdn.materialdesignicons.com/4.5.95/
 
+## Future application
 
-7. Connect with Xiaodu Speaker(control light, etc.)
+1. Connect with Xiaodu Speaker(control light, etc.)
+2. Hot water circulation system
+3. Smart curtain....
 
-8. Hot water circulation system
+# BUGS:
+
+1. always reboot. --> should use original cable.
+2. homekit not available --> debugging
