@@ -114,6 +114,10 @@ python3 /home/pi/plantower/read_g5_sensor.py
 ```
 If it runs well, we can add it in crontab, and fetch data in HA configuration file.
 
+Refer:
+
+https://github.com/raspberrypi/firmware/blob/master/boot/overlays/README
+https://blog.csdn.net/asukasmallriver/article/details/76851375
 
 ### switch
 
