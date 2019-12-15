@@ -96,7 +96,18 @@ python /home/pi/temperature/read_temp_dht22.py
 python /home/pi/humidity/read_humidity.py
 ```
 
-### Plantower (PM1.0/2.5/10, cc0.3/0.5/1.0/2.5/5.0/10.0)
+### Plantower PMS5003 (PM1.0/2.5/10, cc0.3/0.5/1.0/2.5/5.0/10.0)
+
+First we should exchange serial ports, and allocate UART0/ttyAMA0 over GPIOs. 
+The method is to add a line in /boot/config.txt:
+
+```
+dtoverlay=pi3-miniuart-bt
+```
+
+and reboot the raspberry Pi.
+
+Then we should be able to read the data from PMS5003:
 
 ```
 python3 /home/pi/plantower/read_g5_sensor.py
